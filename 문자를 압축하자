@@ -1,0 +1,26 @@
+def huffman_decode(k, code_list, compressed_data):
+    # 허프만 코드 사전 생성
+    huffman_dict = {}
+    for char, code in code_list:
+        huffman_dict[code] = char  # 허프만 코드를 딕셔너리에 저장
+    
+    # 압축된 데이터 디코딩
+    result = ""
+    current_code = ""
+    
+    for bit in compressed_data:
+        current_code += bit  # 현재 비트를 누적하여 현재 코드를 만듦
+        if current_code in huffman_dict:
+            result += huffman_dict[current_code]  # 현재 코드에 해당하는 문자를 결과에 추가
+            current_code = ""  # 현재 코드를 초기화하여 다음 문자를 찾기 위해 준비
+    
+    return result
+
+# 입력 처리
+k = int(input())  # 허프만 코드의 문자 개수 입력
+code_list = [input().split() for _ in range(k)]  # 각 문자와 허프만 코드 입력
+compressed_data = input()  # 압축된 데이터 입력
+
+# 디코딩
+decoded_data = huffman_decode(k, code_list, compressed_data)
+print(decoded_data)  # 디코딩된 결과 출력
